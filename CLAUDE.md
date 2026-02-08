@@ -87,7 +87,7 @@ Register the hook in `~/.claude/settings.json`:
         "hooks": [
           {
             "type": "command",
-            "command": "python3 ~/.claude/hooks/req_change_hook.py"
+            "command": "bash -c \"python3 ~/.claude/hooks/req_change_hook.py\""
           }
         ]
       }
