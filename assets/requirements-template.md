@@ -33,10 +33,26 @@
 ### FR-01: [Title]
 - **Status:** draft
 - **Priority:** must
+- **Actor:** [Actor ID from Actors table — who benefits]
+- **Intent:** In order to [goal/business value], [actor] needs to [capability]
 - **Description:** [What the system does, observable from outside]
 - **Rationale:** [Why this matters]
 - **Acceptance Criteria:**
-  - [ ] [Concrete, testable criterion]
+  - [ ] [Business rule — abstract, declarative]
+- **Scenarios:**
+  ```gherkin
+  Scenario: The one where [short description]
+    Given [concrete precondition with specific data]
+    When [concrete action]
+    Then [concrete expected outcome]
+  ```
+  <!-- Or use an examples table for rule-heavy specs:
+  | Input condition | Action | Expected result |
+  |----------------|--------|-----------------|
+  | specific data  | ...    | specific result  |
+  -->
+  <!-- Scenarios required for must-priority FRs. For should/could, encouraged but optional. -->
+  <!-- Format is author's choice: Given/When/Then for behaviour, tables for data rules. -->
 
 ## Constraints
 

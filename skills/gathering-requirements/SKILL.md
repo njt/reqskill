@@ -43,6 +43,9 @@ As you extract requirements, continuously filter:
 **Decision** = how the system achieves a requirement. "Store config at ~/.cu/config.json."
 **Style** = formatting/presentation. "Truncate names at 45 characters with '...' suffix."
 **Non-Goal** = something explicitly rejected. "Font size buttons (old platform constraint, unnecessary on web)."
+**Scenario** = a concrete example that illustrates a business rule with specific data.
+"Given a VIP customer with 5 books in their cart, when they checkout, they should be
+offered free delivery." Scenarios sit inside their FR — they're not separate artefacts.
 
 The litmus test: "If I changed this, would the user notice a different *capability*?"
 If yes → requirement. If no → decision or style.
@@ -87,6 +90,31 @@ From the braindump, extract:
 
 **Draft a requirements.md** after enough material has accumulated. Use the template
 from `assets/requirements-template.md`. Present it to the human. Expect corrections.
+
+### Phase 2b: Scenario Elicitation (interleaved with Phase 2)
+
+As functional requirements take shape, ask for concrete examples that illustrate
+the business rules. This is the "Illustrate" step — turning abstract rules into
+specific, testable scenarios.
+
+**For each `must`-priority FR:**
+1. Ask: "Can you give me a concrete example of how this works?" Use the
+   "Friends episode" notation — "the one where..." — to name scenarios.
+2. Ask for a counterexample: "What's a case where this rule does NOT apply?"
+3. Ask about edge cases: "What's the weirdest version of this you've seen?"
+
+Scenarios should be concrete (specific data), not abstract ("a valid input").
+Record them in Given/When/Then format or as examples tables — whichever fits
+the rule better. See the requirements-management skill for format guidance.
+
+**Don't overspecify.** Two to three key scenarios per FR is usually enough.
+The goal is to illustrate the rule unambiguously, not to enumerate every
+permutation. If a rule needs more than five scenarios to explain, it probably
+contains implied concepts that should be separate FRs.
+
+**Don't write scripts.** Scenarios describe what the system does, not how the
+user clicks through it. "Given a VIP customer with 5 books" — not "Given the
+user logs in and navigates to the cart page and adds items one by one."
 
 ### Phase 3: Probing for Gaps (2-5 turns)
 
@@ -166,6 +194,8 @@ Before declaring requirements complete, check:
 
 - [ ] Every actor has at least one requirement that serves their needs
 - [ ] Every `must` requirement has concrete acceptance criteria
+- [ ] Every `must` requirement has at least one scenario (concrete example with specific data)
+- [ ] Scenarios are specifications (business rules), not scripts (UI flows)
 - [ ] No requirement uses unmeasurable language ("fast", "easy", "secure")
 - [ ] The glossary covers every domain term that appears in requirements
 - [ ] Constraints don't contradict requirements

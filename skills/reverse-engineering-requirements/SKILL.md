@@ -127,12 +127,17 @@ requirements.md. The subagent should:
 
 **Subagent prompt pattern:**
 > Read `skills/requirements-management/SKILL.md` to understand our requirements
-> philosophy — especially the Requirements vs Spec vs Style section and the
-> litmus test. Then read [source files]. Produce a `requirements.md` following
-> `assets/requirements-template.md`. For each behaviour you find, apply the
-> litmus test: "If I changed this, would the user notice a different capability?"
-> Record requirements, decisions, and style separately. Things you're unsure
-> about go in Open Questions.
+> philosophy — especially the Requirements vs Spec vs Style section, the
+> litmus test, and the Scenarios section. Then read [source files]. Produce a
+> `requirements.md` following `assets/requirements-template.md`. For each
+> behaviour you find, apply the litmus test: "If I changed this, would the user
+> notice a different capability?" Record requirements, decisions, and style
+> separately. Things you're unsure about go in Open Questions.
+> For each `must`-priority FR, extract at least one concrete scenario from
+> the code — a specific input/output example that illustrates the business
+> rule. Use Given/When/Then or examples tables as appropriate. Derive
+> scenarios from test cases, sample data, or representative code paths.
+> Scenarios must describe business behaviour, not implementation steps.
 
 Present the draft to the human. Expect significant corrections — the first pass
 always over-includes implementation details as requirements.
@@ -156,7 +161,8 @@ the current requirements.md against the source code. The subagent looks for:
   requirements but probably shouldn't (platform workarounds, dead features)
 
 **Subagent prompt pattern:**
-> Read `skills/requirements-management/SKILL.md` for our requirements philosophy.
+> Read `skills/requirements-management/SKILL.md` for our requirements philosophy
+> (including the Scenarios section).
 > Then read `requirements.md` (our current spec) and [source files].
 > With completely fresh eyes, identify:
 > 1. Behaviours in the code not captured in requirements (omissions)
@@ -167,6 +173,10 @@ the current requirements.md against the source code. The subagent looks for:
 >    "context menu" describe the old UI, not the user need. Rewrite as capabilities.
 > 5. Code patterns that look like requirements but are probably platform
 >    workarounds or accumulated cruft (non-goal candidates)
+> 6. `must`-priority FRs missing concrete scenarios, or scenarios that are
+>    scripts (UI flow descriptions) rather than specifications (business rules)
+> 7. Scenarios that don't match the code's actual behaviour — the scenario
+>    says X but the code does Y
 > Report findings grouped by category. Be specific — cite code locations.
 
 #### Step 2: Discussion (human + you)
@@ -211,6 +221,8 @@ Check:
 - [ ] Every user-facing capability in the old system is either a requirement or a non-goal
 - [ ] Non-goals have clear rationale (why we're dropping this)
 - [ ] No implementation details leaked into requirements
+- [ ] Every `must`-priority FR has at least one scenario with concrete data
+- [ ] Scenarios describe business behaviour, not old UI flows
 - [ ] Glossary covers domain terms from the old codebase
 - [ ] Open questions don't block `must`-priority work
 - [ ] Future Scope captures things the human mentioned wanting "eventually"

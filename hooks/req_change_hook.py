@@ -48,6 +48,8 @@ Before implementing changes, assess whether the user's message implies:
 - A decision that should be logged
 - A non-goal ("we don't need X", "that was just a workaround for...")
 - A new deliverable or artifact that should exist (documentation, config files, reports)
+- A scenario that no longer matches expected behaviour
+- A must-priority FR that is missing concrete scenarios
 
 If YES: state the proposed change concisely, confirm with the user, then delegate the update to the requirements-editor agent BEFORE implementing code changes.
 If NO: proceed normally. Do not mention this check."""

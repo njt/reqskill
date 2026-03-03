@@ -32,7 +32,7 @@ Sections in order:
 2. **Problem Statement** — what, who, why (2-3 paragraphs max)
 3. **Actors** — table of actor IDs, descriptions, and goals
 4. **Glossary** — canonical terms with aliases; domain quirks and exceptions
-5. **Functional Requirements** — each with ID, status, priority, description, rationale, acceptance criteria
+5. **Functional Requirements** — each with ID, status, priority, actor, intent, description, rationale, acceptance criteria, scenarios
 6. **Constraints** — technical, business, or operational limits on the solution space
 7. **Non-functional Requirements** — performance, security, reliability with measurable criteria
 8. **Future Scope** — anticipated work explicitly not in current scope but worth recording
@@ -141,6 +141,65 @@ sub-items are? What if FR-01.3 changes status? Each testable behaviour gets its 
 If a group of requirements are related, use a short title on each and let the IDs be
 sequential — the reader can see they're related without nesting.
 
+### Actor and Intent
+
+Each FR has an **Actor** field (referencing the Actors table) and an **Intent** line
+that captures the business value in a single sentence: "In order to [goal], [actor]
+needs to [capability]." This makes the "who benefits" and "why it matters" explicit
+without burying it in prose. The Actor field connects each FR to the Actors table —
+if an actor has no FRs, something is missing.
+
+### Scenarios: Concrete Examples That Illustrate Rules
+
+Acceptance criteria are abstract business rules ("VIP customers get free delivery
+on book orders"). Scenarios are concrete examples that illustrate those rules with
+specific data — they make the rule testable and unambiguous.
+
+**Scenarios are required for `must`-priority FRs. Encouraged but optional for
+`should` and `could`.**
+
+The format is author's choice per FR:
+
+**Given/When/Then** (Gherkin-style) — best for behaviour-oriented specs:
+```gherkin
+Scenario: The one where a VIP buys enough books for free delivery
+  Given a VIP customer with 5 books in their cart
+  When they proceed to checkout
+  Then they should be offered both Free and Standard delivery
+```
+
+**Examples table** — best for data-rule specs where inputs/outputs matter more
+than sequence:
+```markdown
+| Customer type | Cart contents | Delivery       |
+|---------------|--------------|----------------|
+| VIP           | 5 books      | Free, Standard |
+| VIP           | 4 books      | Standard       |
+| Regular       | 10 books     | Standard       |
+```
+
+Both formats are valid. Use whichever communicates the rule most clearly. Some
+FRs will use both — a GWT scenario for the happy path plus a table for variations.
+
+#### What Makes a Good Scenario
+
+- **Precise** — concrete data, not "a valid input" or "some items"
+- **Focused** — one business rule per scenario; use separate scenarios for separate rules
+- **Not a script** — describes what the system does, not click-by-click UI interaction.
+  "Given a VIP customer" not "Given the user logs in as admin and navigates to..."
+- **About business functionality** — no implementation details, technical jargon, or
+  UI element names. The scenario should survive a complete platform rewrite unchanged.
+- **Representative, not exhaustive** — 2-3 key examples per rule, not every permutation.
+  An LLM can generate boundary cases from good representative examples.
+
+#### Scenarios Enable Test Generation
+
+Scenarios are designed to be human-readable descriptions that can be translated into
+automated tests (by an LLM or traditional test automation). The specification stays
+in business language; the automation layer handles the translation. Don't distort
+the scenario to make automation easier — solve technical testing challenges in the
+automation layer, not in the specification.
+
 ## What Goes in systems.md
 
 systems.md documents **external system topology** — what exists, where it lives, how to
@@ -236,6 +295,8 @@ The main agent should delegate to `requirements-editor` when the user's message 
 - A new or changed external system dependency (also update systems.md)
 - A design decision that should be logged
 - A new deliverable or artifact that should exist (documentation, config files, reports)
+- A scenario that no longer matches expected behaviour (acceptance criteria changed)
+- A `must`-priority FR is missing scenarios
 
 The main agent should also delegate when:
 - A behaviour is identified as a non-goal ("we don't need X because...")
@@ -268,5 +329,8 @@ When asked to review requirements, check for:
 - Missing error/edge cases (what happens when X fails?)
 - Implicit requirements that everyone assumes but nobody wrote down
 - Actors whose needs aren't covered by any requirement
+- `must`-priority FRs without scenarios (concrete examples)
+- Scenarios that are scripts (UI flows) rather than specifications (business rules)
+- Scenarios with vague data ("some items", "a valid input") instead of concrete values
 - Constraints that conflict with requirements
 - Open questions that block `must`-priority work
