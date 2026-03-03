@@ -16,6 +16,10 @@ This isn't a generic requirements framework. It encodes specific beliefs about h
 
 **Flat atomic requirements over nested hierarchies.** Each testable behaviour gets its own ID (FR-01, FR-02, FR-03). No FR-01.1, FR-01.2. Nesting creates ambiguity about status and completeness.
 
+**Requirements have three layers: narrative, rules, and examples.** Each FR has an Actor (who benefits), Intent (why it matters), Description (what it does), Acceptance Criteria (abstract business rules), and Scenarios (concrete examples with specific data). The acceptance criteria say *what* the rule is; the scenarios illustrate it with real data. Scenarios are required for `must`-priority FRs. Format is author's choice: Given/When/Then for behaviour-oriented specs, examples tables for data-rule specs.
+
+**Scenarios are specifications, not scripts.** They describe what the system does in business language, not click-by-click UI flows. They should survive a complete platform rewrite unchanged. This makes them human-readable descriptions of functional expectations that can be translated into automated tests — by an LLM or traditional test tooling.
+
 **Decisions are append-only.** Never delete or overwrite a decision — add a new one that supersedes it. This preserves the reasoning trail. Decisions also track **ownership**: LLM decisions can be freely revisited; human and client decisions are treated as given unless explicitly reopened.
 
 **Open questions over assumptions.** When something is uncertain, record an open question rather than guessing. Questions are resolved by converting them into requirements, constraints, or decisions — never silently.

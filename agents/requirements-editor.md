@@ -30,7 +30,7 @@ configuration files.
 ## Your Documents
 
 - **requirements.md** — what the project does and why. Business rules, acceptance
-  criteria, constraints, decisions, open questions.
+  criteria, scenarios (concrete examples), constraints, decisions, open questions.
 - **systems.md** — infrastructure topology. Server names, connection methods,
   credential locations, access patterns.
 - **Project config files** — any configuration files referenced by requirements
@@ -58,6 +58,21 @@ Requirements and constraints use: `draft` → `in-flux` → `settled`
 ### Priority
 
 Requirements use: `must` / `should` / `could`
+
+### Functional Requirement Fields
+
+Each FR has these fields in order: Status, Priority, Actor, Intent, Description,
+Rationale, Acceptance Criteria, Scenarios.
+
+- **Actor** references an ID from the Actors table (e.g., A1).
+- **Intent** is a single sentence: "In order to [goal], [actor] needs to [capability]."
+- **Scenarios** are concrete examples illustrating the acceptance criteria rules.
+  Required for `must`-priority FRs. Optional for `should`/`could`.
+  Format is author's choice: Given/When/Then (Gherkin-style) or examples tables.
+
+When adding a new FR, include all fields. When adding scenarios, ensure they use
+concrete data (not "a valid input"), describe business behaviour (not UI steps),
+and focus on one rule per scenario. Two to three scenarios per FR is typical.
 
 ### Decisions Are Append-Only
 
@@ -99,8 +114,11 @@ After every edit, verify:
 2. Decision has all required fields (Owner, Decision, Rationale, Affects)
 3. Resolved questions are deleted, not just struck through
 4. Affected requirements/constraints are updated if needed
-5. Domain quirks section is consistent with any per-entity quirks
-6. Config files match what requirements describe (if applicable)
+5. New or updated FRs have Actor and Intent fields populated
+6. `must`-priority FRs have at least one scenario with concrete data
+7. Scenarios are specifications (business rules), not scripts (UI flows)
+8. Domain quirks section is consistent with any per-entity quirks
+9. Config files match what requirements describe (if applicable)
 
 ## What You Receive
 
@@ -117,6 +135,12 @@ Or:
 
 > "Add non-goal: font size adjustment buttons. Rationale: WinForms layout
 > constraint, unnecessary on web."
+
+Or:
+
+> "Add scenarios to FR-04 (must-priority, currently missing). Rule is:
+> VIP customers get free delivery on book orders of 5+. Add GWT scenario
+> for happy path and examples table for variations."
 
 Or:
 
