@@ -1,4 +1,4 @@
-# reqskill
+# powerups-requirements
 
 Requirements management toolkit for Claude Code — skills, agent, and hook for structured requirements elicitation, extraction, and maintenance.
 

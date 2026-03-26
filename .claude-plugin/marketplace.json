@@ -1,0 +1,16 @@
+{
+  "name": "powerups-requirements-dev",
+  "description": "Development marketplace for requirements management plugin",
+  "owner": {
+    "name": "Nat Torkington",
+    "email": "nat@torkington.com"
+  },
+  "plugins": [
+    {
+      "name": "powerups-requirements",
+      "description": "Requirements management toolkit: Socratic elicitation, reverse-engineering from code, and maintenance during development",
+      "version": "1.0.0",
+      "source": "./"
+    }
+  ]
+}

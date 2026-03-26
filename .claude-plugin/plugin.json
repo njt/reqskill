@@ -1,0 +1,19 @@
+{
+  "name": "powerups-requirements",
+  "description": "Requirements management toolkit: Socratic elicitation, reverse-engineering from code, and maintenance during development",
+  "version": "1.0.0",
+  "author": {
+    "name": "Nat Torkington",
+    "email": "nat@torkington.com"
+  },
+  "homepage": "https://github.com/njt/powerups-requirements",
+  "repository": "https://github.com/njt/powerups-requirements",
+  "license": "MIT",
+  "keywords": [
+    "requirements",
+    "elicitation",
+    "reverse-engineering",
+    "specifications",
+    "workflow"
+  ]
+}

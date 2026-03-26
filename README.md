@@ -1,4 +1,4 @@
-# reqskill
+# powerups-requirements
 
 Requirements management toolkit for [Claude Code](https://docs.anthropic.com/en/docs/claude-code). Three skills, a subagent, and a hook that keep requirements documents accurate across long coding sessions.
 
@@ -36,11 +36,20 @@ This isn't a generic requirements framework. It encodes specific beliefs about h
 
 ## Install
 
+### Via Powerups Marketplace (recommended)
+
+```
+/plugin marketplace add njt/powerups-marketplace
+/plugin install powerups-requirements@powerups-marketplace
+```
+
+### Manual
+
 Requires [Claude Code](https://docs.anthropic.com/en/docs/claude-code) and Python 3.
 
 ```bash
-git clone https://github.com/njt/reqskill.git
-cd reqskill
+git clone https://github.com/njt/powerups-requirements.git
+cd powerups-requirements
 
 # Skills
 cp -r skills/gathering-requirements ~/.claude/skills/
